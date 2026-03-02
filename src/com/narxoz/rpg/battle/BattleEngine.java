@@ -15,8 +15,6 @@ public final class BattleEngine {
     private Random random = new Random(DEFAULT_SEED);
     private long currentSeed = DEFAULT_SEED;
 
-    private int lastEncounterRounds = 0;
-
     private BattleEngine() { }
 
     public static BattleEngine getInstance() {
@@ -47,7 +45,7 @@ public final class BattleEngine {
         if (teamB.isEmpty()) {
             throw new IllegalArgumentException("teamB must not be empty");
         }
-        
+
         for (Combatant c : teamA) {
             if (c == null) throw new IllegalArgumentException("teamA contains null combatant");
         }
