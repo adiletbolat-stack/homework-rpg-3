@@ -3,11 +3,14 @@ package com.narxoz.rpg.adapter;
 import com.narxoz.rpg.battle.Combatant;
 import com.narxoz.rpg.hero.Hero;
 
+import java.util.Objects;
+
 public class HeroCombatantAdapter implements Combatant {
+
     private final Hero hero;
 
     public HeroCombatantAdapter(Hero hero) {
-        this.hero = hero;
+        this.hero = Objects.requireNonNull(hero, "Hero must not be null");
     }
 
     @Override
@@ -17,8 +20,9 @@ public class HeroCombatantAdapter implements Combatant {
 
     @Override
     public int getAttackPower() {
-        // TODO: translate hero power to combat attack
-        return hero.getPower();
+        int power = hero.getPower();
+
+        return Math.max(0, power);
     }
 
     @Override
@@ -29,5 +33,9 @@ public class HeroCombatantAdapter implements Combatant {
     @Override
     public boolean isAlive() {
         return hero.isAlive();
+    }
+
+    public Hero getWrapped() {
+        return hero;
     }
 }

@@ -3,11 +3,14 @@ package com.narxoz.rpg.adapter;
 import com.narxoz.rpg.battle.Combatant;
 import com.narxoz.rpg.enemy.Enemy;
 
+import java.util.Objects;
+
 public class EnemyCombatantAdapter implements Combatant {
+
     private final Enemy enemy;
 
     public EnemyCombatantAdapter(Enemy enemy) {
-        this.enemy = enemy;
+        this.enemy = Objects.requireNonNull(enemy, "Enemy must not be null");
     }
 
     @Override
@@ -17,8 +20,9 @@ public class EnemyCombatantAdapter implements Combatant {
 
     @Override
     public int getAttackPower() {
-        // TODO: translate enemy damage to combat attack
-        return enemy.getDamage();
+        int damage = enemy.getDamage();
+
+        return Math.max(0, damage);
     }
 
     @Override
@@ -29,5 +33,9 @@ public class EnemyCombatantAdapter implements Combatant {
     @Override
     public boolean isAlive() {
         return !enemy.isDefeated();
+    }
+
+    public Enemy getWrapped() {
+        return enemy;
     }
 }
